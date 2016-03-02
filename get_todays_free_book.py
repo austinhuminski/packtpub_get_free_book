@@ -1,3 +1,4 @@
+import os
 from time import sleep
 from selenium import webdriver
 
@@ -14,16 +15,19 @@ def click_claim():
 
 def go_to_free_learning_page():
     driver.get('https://www.packtpub.com/packt/offers/free-learning')
-    driver.find_element_by_xpath('//*[@id="account-bar-login-register"]/a[1]/div').click()
-    driver.find_element_by_xpath("id('email')").send_keys("austinhuminski@gmail.com")
-    driver.find_element_by_id('password').send_keys('Blue611')
+    driver.find_element_by_xpath(
+        '//*[@id="account-bar-login-register"]/a[1]/div'
+    ).click()
+    driver.find_element_by_xpath("id('email')").send_keys(
+        os.getenv('PACKTPUB_USERNAME')
+    )
+    driver.find_element_by_id('password').send_keys(
+        os.getenv('PACKTPUB_PASSWORD')
+    )
 
 go_to_free_learning_page()
 click_claim()
 sleep(2)
-
-# Enter in username and password. Submit
-# driver.find_element_by_xpath('//*[@id="email"]').click()
 
 driver.find_element_by_id('edit-submit-1').click()
 
